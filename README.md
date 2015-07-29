@@ -1,7 +1,7 @@
 About
 =====
 
-PPK is a library that allows you to read data files in simple C-like format.
+PPK is a library that allows you to read data files in simple C-like format. Documentation is available at http://dekakaruk.github.io/PPK .
 
 
 
