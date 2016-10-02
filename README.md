@@ -10,13 +10,13 @@ Building
 While in main directory type:
 
 ~~~bash
-qmake
+cmake
 make
-make doc
+make doc  # if you want a documentation
 make install
 ~~~
 
-All important things will be in subdirectory “Built” and html documentation in “html”. The only dependency is boost.
+The only dependency is Boost. If you want also a documentation, you need Doxygen too. It will be in the "html" directory.
 
 
 Example file
