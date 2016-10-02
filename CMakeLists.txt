@@ -2,10 +2,6 @@ cmake_minimum_required (VERSION 3.1)
 
 
 
-# User options
-set (CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build (Debug or Release)")
-
-
 
 # Cmake setup
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
@@ -64,5 +60,5 @@ target_link_libraries (${PROJECT_NAME} ${Boost_LIBRARIES})
 
 # Installation
 
-install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 install(FILES ${HEADERS} DESTINATION include/${PROJECT_NAME})

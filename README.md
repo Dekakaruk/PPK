@@ -88,7 +88,7 @@ if (!fs.read("some_file.cl"))
 
 ppk::Node & root = fs.getRoot();
 bool a = root["a-bool"];
-int b = root["big_list"][3];
+int b = root["big_list"][2];
 float c = root("nonexisting float", 7.0);  // returns default value
 
 for (auto & node : root.only("Tree"))
