@@ -331,6 +331,26 @@ unsigned Node::size() const
 	return block_index.size();
 }
 
+bool Node::hasDimensions(const std::list<size_t> & dimensions) const
+{
+	return hasDimensions(dimensions.cbegin(), dimensions.cend());
+}
+
+bool Node::hasDimensions(std::list<size_t>::const_iterator it, std::list<size_t>::const_iterator end) const
+{
+	if (size() != *it)
+		return false;
+
+	if (++it == end)
+		return true;
+
+	for (auto & child : all())
+		if (!child.hasDimensions(it, end))
+			return false;
+
+	return true;
+}
+
 void Node::print(int d) const
 {
 	for (int i = 0; i < d; i++)

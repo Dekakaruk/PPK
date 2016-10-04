@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <list>
 
 #include "NodeIterators.hpp"
 
@@ -117,6 +118,14 @@ public:
 	
 	/// Checks if it has child of given name.
 	bool hasKey(const std::string & name) const;
+
+	/**
+	 * @brief Checks if the node and its children make a hypercube of given dimensions,
+	 * i.e. if this node has the first size, if all its children have the second size,
+	 * if all their children have the third size and so on. 
+	 * @throws std::out_of_range if there is no such child
+	 */
+	bool hasDimensions(const std::list<size_t> & dimensions) const;
 	
 	
 	// ------------- GETTERS ------------- //
@@ -376,6 +385,9 @@ private:
 	detail::block_index_type block_index;
 	
 	void shake();  // creates anonymous child and gives it all parent's content. It is helper method for Parser.
+
+	bool hasDimensions(std::list<size_t>::const_iterator it,         // helper for hasDimensions()
+	                   std::list<size_t>::const_iterator end) const;
 };
 
 }  // namespace ppk
