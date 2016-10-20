@@ -215,7 +215,7 @@ Node & Node::operator[](const std::string & name)
 {
 	std::pair<block_type::iterator, block_type::iterator> ret = block.equal_range(name);
 	
-	if (ret.first == block.end())
+	if (ret.first == ret.second)
 		throw std::out_of_range("There is no such key as " + name + " in node " + getName() + (!hasIdentifier() ? " " + getIdentifier() : "") + "!");
 	
 	return *((--(ret.second))->second);
@@ -225,7 +225,7 @@ const Node & Node::operator[](const std::string & name) const
 {
 	std::pair<block_type::const_iterator, block_type::const_iterator> ret = block.equal_range(name);
 	
-	if (ret.first == block.end())
+	if (ret.first == ret.second)
 		throw std::out_of_range("There is no such key as " + name + " in node " + getName() + (!hasIdentifier() ? " " + getIdentifier() : "") + "!");
 	
 	return *((--(ret.second))->second);
