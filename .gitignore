@@ -1,4 +1,3 @@
-Makefile
-Build
-Built
-html
+/CMakeLists.txt.user
+/cmake-build-*
+/.idea

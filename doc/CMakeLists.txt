@@ -1,0 +1,7 @@
+set(DOXYGEN_INPUT "${PROJECT_SOURCE_DIR}/src")
+set(DOXYGEN_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}")
+configure_file(${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in Doxyfile @ONLY)
+
+add_custom_target(doc ${DOXYGEN_EXECUTABLE} COMMENT "Generating API documentation with Doxygen" VERBATIM)
+
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html OPTIONAL DESTINATION ${CMAKE_INSTALL_DOCDIR})

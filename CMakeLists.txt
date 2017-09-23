@@ -1,64 +1,33 @@
 cmake_minimum_required (VERSION 3.1)
 
+project(PPK VERSION 0.1)
 
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
-# Cmake setup
-set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-
-
-
-# Project setup
-project (PPK)
-
-set (CMAKE_CXX_STANDARD 11)
-set (VERSION_MAJOR 0)
-set (VERSION_MINOR 1)
-
-set (SOURCES
-    src/Node.cpp
-    src/IFileIterator.cpp
-    src/FS.cpp
-)
-
-set (HEADERS
-    src/Node.hpp
-    src/Node.tpp
-    src/NodeIterators.tpp
-    src/utility.hpp
-    src/NodeIterators.hpp
-    src/StandardConverters.hpp
-    src/IFileIterator.hpp
-    src/FS.hpp
-)
-
-
-add_custom_target(headers SOURCES ${HEADERS}) # for the sake of IDEs
-add_library (${PROJECT_NAME} SHARED ${SOURCES})
-
-
-# Documentation
-
+find_package(Boost 1.40 REQUIRED COMPONENTS filesystem)
 find_package(Doxygen)
-if (DOXYGEN_FOUND)
-	configure_file (${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-	add_custom_target (doc
-		${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-		COMMENT "Generating API documentation with Doxygen" VERBATIM
+
+
+if(DOXYGEN_FOUND)
+	add_subdirectory(doc)
+endif()
+
+add_subdirectory(src)
+
+
+set(CMAKE_CONFIG_TARGET "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+set(CONFIG_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
+
+install(
+	EXPORT ${PROJECT_NAME}
+	NAMESPACE ${PROJECT_NAME}::
+	DESTINATION ${CMAKE_CONFIG_TARGET}
+	FILE "Targets.cmake"
 	)
-endif (DOXYGEN_FOUND)
 
+write_basic_package_version_file(${CONFIG_VERSION_FILE} COMPATIBILITY SameMajorVersion)
+install(FILES ${CONFIG_VERSION_FILE} DESTINATION ${CMAKE_CONFIG_TARGET})
 
-# External libraries
-
-find_package (Boost REQUIRED system filesystem)
-include_directories (${Boost_INCLUDE_DIR})
-target_link_libraries (${PROJECT_NAME} ${Boost_LIBRARIES})
-
-
-
-# Installation
-
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include/${PROJECT_NAME})
+install(FILES "Config.cmake" RENAME "${PROJECT_NAME}Config.cmake" DESTINATION ${CMAKE_CONFIG_TARGET})
