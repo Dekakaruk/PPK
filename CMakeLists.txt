@@ -1,6 +1,6 @@
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.9)
 
-project(PPK VERSION 0.1)
+project(PPK VERSION 0.1 DESCRIPTION "Library reading data files.")
 
 
 include(GNUInstallDirs)
@@ -8,11 +8,6 @@ include(CMakePackageConfigHelpers)
 
 find_package(Boost 1.40 REQUIRED COMPONENTS filesystem)
 find_package(Doxygen)
-
-
-if(DOXYGEN_FOUND)
-	add_subdirectory(doc)
-endif()
 
 add_subdirectory(src)
 
